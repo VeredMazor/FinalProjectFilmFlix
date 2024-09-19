@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "66bda16ec9e9890472bfee7f"
+  },
+  "CustomersID": 2649441,
+  "Email": "vered@gmail.com",
+  "Password": "15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225",
+  "Top5MovieIDs": [
+    13,
+    33,
+    68,
+    32,
+    37
+  ],
+  "Username": "vered"
+}]

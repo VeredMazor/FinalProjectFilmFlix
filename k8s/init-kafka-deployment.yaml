@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.34.0 (HEAD)
+  labels:
+    io.kompose.service: init-kafka
+  name: init-kafka
+spec:
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.34.0 (HEAD)
+      labels:
+        io.kompose.service: init-kafka
+    spec:
+      initContainers:
+        - name: wait-for-kafka
+          image: busybox
+          command: ['sh', '-c', 'until nc -z kafka1 9092; do echo waiting for kafka; sleep 2; done;']
+      containers:
+        - args:
+            - kafka-topics
+            - --bootstrap-server
+            - kafka1:9092
+            - --create
+            - --if-not-exists
+            - --topic
+            - test
+            - --replication-factor
+            - "1"
+            - --partitions
+            - "1"
+          image: confluentinc/cp-kafka:7.2.0
+          name: init-kafka
+      restartPolicy: Never
+  backoffLimit: 1  # Optional: Number of retries before the Job is considered failed

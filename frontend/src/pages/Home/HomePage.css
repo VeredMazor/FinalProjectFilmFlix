@@ -1,0 +1,6 @@
+.home-background {
+    background-image: url('../../Images/Background.jpeg'); /* Adjust path as needed */
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}

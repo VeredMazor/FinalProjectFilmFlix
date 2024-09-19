@@ -1,0 +1,2 @@
+*/20 * * * * /app/run_ALS_script.sh >> /var/log/cron.log 2>&1
+

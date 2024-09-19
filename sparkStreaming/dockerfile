@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+# Set the working directory
+WORKDIR /app
+
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk procps
+
+# Copy requirements.txt and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the spark_streaming.py script
+COPY spark_streaming.py .
+
+# Run the spark_streaming.py script
+CMD ["python","spark_streaming.py"]

@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-uploader
+  labels:
+    io.kompose.service: data-uploader
+spec:
+  template:
+    metadata:
+      labels:
+        io.kompose.service: data-uploader
+    spec:
+      containers:
+        - name: data-uploader
+          image: veredmazor/data_uploader
+          env:
+            - name: MONGO_HOST
+              value: mongodb-container
+            - name: MONGO_PORT
+              value: "27017"
+          resources:
+            requests:
+              memory: "14Gi"
+              cpu: "2"       # Requesting 2 CPUs
+            limits:
+              memory: "14Gi"
+              cpu: "4"       # Requesting 2 CPUs
+      restartPolicy: Never
+  backoffLimit: 1  # Optional: Number of retries before the Job is considered failed

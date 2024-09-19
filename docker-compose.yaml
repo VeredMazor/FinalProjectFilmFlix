@@ -1,0 +1,113 @@
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb-container
+    ports:
+      - "27017:27017"
+    networks:
+      - filmflix-network
+
+  data_uploader:
+    image: data_uploader # Ensure this image name is correct if using a pre-built image
+    build: ./data
+    depends_on:
+      - mongodb  # Updated service name from 'mongo' to 'mongodb'
+    environment:
+      - MONGO_HOST=mongodb-container
+      - MONGO_PORT=27017
+    networks:
+      - filmflix-network
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:7.2.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    healthcheck:
+      test: ['CMD', 'bash', '-c', "echo 'ruok' | nc localhost 2181"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - filmflix-network
+
+  kafka1:
+    container_name: kafka1
+    image: confluentinc/cp-kafka:7.2.0
+    hostname: kafka1
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+      - "9999:9999"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_URL: localhost:9092
+      KAFKA_TOPIC_NAME: test
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - filmflix-network
+    healthcheck:
+      test: ['CMD', 'bash', '-c', 'nc -z localhost 9092']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  init_kafka:
+    container_name: init_kafka
+    image: confluentinc/cp-kafka:7.2.0
+    networks:
+      - filmflix-network
+    depends_on:
+      - kafka1
+    command: kafka-topics --bootstrap-server kafka1:9092 --create --if-not-exists --topic test --replication-factor 1 --partitions 1
+
+
+  spark-consume:
+    image: finel-project-spark-consume
+    container_name: spark-consume
+    depends_on:
+      - mongodb
+    networks:
+      - filmflix-network
+
+  spark-als-model:
+    image: finel-project-spark-als-model
+    container_name: spark-als
+    depends_on:
+      - mongodb
+    networks:
+      - filmflix-network
+
+  flask-backend:
+    image: finel-project-flask-backend
+    container_name: flask-backend
+    environment:
+      - MONGO_HOST=mongodb-container
+      - MONGO_PORT=27017
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+      - data_uploader
+    networks:
+      - filmflix-network
+
+  react-frontend:
+    image: finel-project-react-frontend
+    container_name: react-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - filmflix-network
+
+networks:
+  filmflix-network:
+    driver: bridge
+
+volumes:
+  mongo-data:

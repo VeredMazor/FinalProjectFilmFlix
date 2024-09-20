@@ -35,18 +35,22 @@ Containerization: Docker
 
 ### Installation
 Set up Frontend without docker:
-
+```bash
 cd frontend
 npm install
 npm start
-
+```
 Set up Backend without docker:
+```bash
 cd backend
 python -m venv venv
 source venv/bin/activate  # For Linux/macOS
 venv\Scripts\activate     # For Windows
 pip install -r requirements.txt
 python app.py
-
+```
 Run all in docker:
+```bash
 docker-compose up
+```
+

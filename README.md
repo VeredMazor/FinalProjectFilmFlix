@@ -1,9 +1,9 @@
-FilmFlix - Movie Recommendation System
+# FilmFlix - Movie Recommendation System
 Project Overview
 FilmFlix is ​​a personalized movie recommendation system that leverages the Alternating Least Squares (ALS) algorithm. Users can rate movies, and based on their ratings, the system provides customized movie recommendations. 
 
 
-Architecture:
+## Architecture:
 
 React - used to build a responsive and interactive UI for users to browse movies, submit ratings, and view recommendations.
 Back end:
@@ -21,7 +21,7 @@ Database:
 MongoDB stores user data, movie information, and ratings.
 
 
-Technologies Used:
+## Technologies Used:
 
 Frontend: React, JavaScript, Material-UI
 Backend: Flask, Python, Flask-CORS, Flask-JWT

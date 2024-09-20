@@ -54,3 +54,11 @@ Run all in docker:
 docker-compose up
 ```
 
+## Images
+
+![Capture2](https://github.com/user-attachments/assets/98a45dd9-32f2-455f-a1b2-f2b122ff6f82)
+![Capture1](https://github.com/user-attachments/assets/24ff8ecc-ba4d-41e6-87e0-ef74314a5110)
+![Capture3](https://github.com/user-attachments/assets/aab03a40-6784-448a-aa5b-35bb2d301ebe)
+![Capture4](https://github.com/user-attachments/assets/73305ea1-d428-4e67-8386-d7dd51573dbe)
+
+

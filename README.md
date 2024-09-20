@@ -23,12 +23,12 @@ MongoDB stores user data, movie information, and ratings.
 
 ## Technologies Used
 
-Frontend: React, JavaScript, Material-UI
-Backend: Flask, Python, Flask-CORS, Flask-JWT
-Queue: Kafka
-Data Processing: Apache Spark, Spark Streaming
-Database: MongoDB
-Containerization: Docker
+- Frontend: React, JavaScript, Material-UI
+- Backend: Flask, Python, Flask-CORS, Flask-JWT
+- Queue: Kafka
+- Data Processing: Apache Spark, Spark Streaming
+- Database: MongoDB
+- Containerization: Docker
 
 ![image](https://github.com/user-attachments/assets/c2db6ceb-377f-4bbf-8176-e5418da14fab)
 

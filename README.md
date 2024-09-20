@@ -31,3 +31,22 @@ Database: MongoDB
 Containerization: Docker
 
 ![image](https://github.com/user-attachments/assets/c2db6ceb-377f-4bbf-8176-e5418da14fab)
+
+
+### Installation
+Set up Frontend without docker:
+
+cd frontend
+npm install
+npm start
+
+Set up Backend without docker:
+cd backend
+python -m venv venv
+source venv/bin/activate  # For Linux/macOS
+venv\Scripts\activate     # For Windows
+pip install -r requirements.txt
+python app.py
+
+Run all in docker:
+docker-compose up
